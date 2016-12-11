@@ -1,0 +1,91 @@
+Any raw assets you want to be deployed with your application can be placed in
+this directory (and child directories) and given a Build Action of "AndroidAsset".
+
+These files will be deployed with your package and will be accessible using Android's
+AssetManager, like this:
+
+public class ReadAsset : Activity
+{
+	protected override void OnCreate (Bundle bundle)
+	{
+		base.OnCreate (bundle);
+
+		InputStream input = Assets.Open ("my_asset.txt");
+	}
+}
+
+Additionally, some Android functions will automatically load asset files:
+
+Typeface tf = Typeface.CreateFromAsset (Context.Assets, "fonts/samplefont.ttf");
+
+--------------------------------------
+Xamarin form Frame outline color display issue in android
+https://bugzilla.xamarin.com/show_bug.cgi?id=27460
+
+
+This is about the quick glance on the issue i've faced during the use of Frame control in xamarin form project.
+Using xamarin form Frame controls shows some strange behaviour in android platform where as it shows elegant look in iOS.
+
+we can notice this diffrence in below screen shot.
+
+[]
+
+This is also reported bug in xamarin bugzilla [https://bugzilla.xamarin.com/show_bug.cgi?id=27460]
+To solve this frame border issue in android we can think of using two approaches. 
+
+1)Having the custom renderer class with overriding method Draw and private method DrawOutline.
+By adding below custom renderer class we can change the frame border corner radius, border color and border stroke.
+
+<script src="https://gist.github.com/suchithm/bcde1e4af0fd386e33e7293a2da31f18.js"></script>
+
+2)Update the Frame background with rounded corner selector xml by providing stroke, corner radius and color,
+
+
+<script src="https://gist.github.com/suchithm/46b02e7e17a06e92a1d5183730aa01d1.js"></script>
+
+RoundedCornerFrameRenderer.cs
+
+using System;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using System.ComponentModel;
+using Android.Graphics;
+using Android.Graphics.Drawables;
+using AButton = Android.Widget.Button;
+using ACanvas = Android.Graphics.Canvas;
+using GlobalResource = Android.Resource;
+
+[assembly: ExportRenderer(typeof(RoundCornerFrame), typeof(RoundedCornerFrameRenderer))]
+namespace FrameBugPoc.Droid 
+{
+public class RoundedCornerFrameRenderer : FrameRenderer
+{  
+  protected override void OnElementChanged(ElementChangedEventArgs<Frame> e)
+    {
+    base.OnElementChanged(e);
+     
+     if (e.NewElement != null && e.OldElement == null)
+     {
+	    this.SetBackgroundResource(Resource.Drawable.rounded_corner_background);
+	    GradientDrawable drawable = (GradientDrawable)this.Background;
+	    drawable.SetColor(Android.Graphics.Color.ParseColor("#F0F0F0"));
+     }
+
+    }  
+   }
+ }
+
+ <script src="https://gist.github.com/suchithm/3381c7e23170628adc5c6ff3943af848.js"></script>
+
+
+ rounded_corner_background.xml
+ <?xml version="1.0" encoding="UTF-8" ?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+  <stroke android:width="1dp"
+         android:color="#252525"/>
+  <corners android:radius="5dp" />
+<solid android:color="#FFFFFF" />
+</shape>
+
+Keep visiting for more exciting stuffs on mobile application development. 

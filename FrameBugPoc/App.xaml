@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+		x:Class="FrameBugPoc.App">
+ <Application.MainPage>
+    <ContentPage>
+    <!--  <Grid VerticalOptions="Center">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto"></RowDefinition>
+          <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>-->
+     <StackLayout Padding="40" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"> 
+          <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+					OutlineColor="#A7AE22"  
+					Padding="0,60,0,0"
+						HasShadow="false">
+			 <Label x:Name="lblName" FontSize="24" HorizontalOptions="CenterAndExpand" TextColor="#8E8C6D"
+						FontAttributes="Bold" Text="Applied Code Log"/>
+           <!-- <Label Text="Label" FontSize="60" />-->
+          </Frame>
+  </StackLayout> 
+       <!-- <Button Text="Change color" FontSize="24" Grid.Row="1" Command="{Binding ChangeColor}"/> -->
+    <!--  </Grid>-->
+    </ContentPage>
+  </Application.MainPage>
+</Application>
+
+<!--//data ?? return string.empty-->
